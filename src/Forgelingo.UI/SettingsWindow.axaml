@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Window xmlns="https://github.com/avaloniaui" Title="Settings" Width="400" Height="200">
+  <StackPanel Margin="12">
+    <TextBlock Text="API Key (DeepSeek)" />
+    <TextBox Name="ApiKeyBox" />
+    <Button Name="BtnSave" Content="Save" HorizontalAlignment="Right" Margin="0,8,0,0" />
+  </StackPanel>
+</Window>

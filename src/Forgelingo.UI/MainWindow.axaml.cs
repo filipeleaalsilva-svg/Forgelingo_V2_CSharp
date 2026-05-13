@@ -14,29 +14,51 @@ namespace Forgelingo.UI
             InitializeComponent();
             var btn = this.FindControl<Button>("BtnSelectFolder");
             btn.Click += async (_, __) => await OnSelectFolder();
+            var settings = this.FindControl<Button>("BtnSettings");
+            settings.Click += async (_, __) => await OnSettings();
+        }
+
+        private async Task OnSettings()
+        {
+            var dlg = new SettingsWindow();
+            await dlg.ShowDialog(this);
         }
 
         private async Task OnSelectFolder()
         {
             var dlg = new OpenFolderDialog { Title = "Select Mods Folder" };
             var path = await dlg.ShowAsync(this);
-            var status = this.FindControl<TextBlock>("Status");
-            if (string.IsNullOrEmpty(path)) { status.Text = "No folder"; return; }
-            status.Text = "Processing...";
+            var log = this.FindControl<TextBox>("LogBox");
+            var prog = this.FindControl<ProgressBar>("Progress");
+            if (string.IsNullOrEmpty(path)) { log.Text += "No folder selected\n"; return; }
+            log.Text += $"Processing folder: {path}\n";
+            prog.Value = 0;
 
-            // simple orchestrator run
-            var ai = new AIEngineSkeleton(apiKey: "");
-            var orch = new ForgelingoOrchestrator(ai);
-            // run in background to avoid UI block
+            var apiKey = SettingsManager.LoadApiKey();
+            IAIEngine ai;
+            if (!string.IsNullOrEmpty(apiKey)) ai = new DeepSeekAIEngine(apiKey);
+            else ai = new AIEngineSkeleton("");
+
+            var mem = new TranslationMemory();
+            var orch = new ForgelingoOrchestrator(ai, mem);
+
             await Task.Run(async () =>
             {
                 var jars = Directory.GetFiles(path, "*.jar");
                 var outdir = Path.Combine(path, "_ResourcePack");
                 Directory.CreateDirectory(outdir);
-                foreach (var jar in jars) await orch.ProcessJarAsync(jar, outdir);
+                int i = 0;
+                foreach (var jar in jars)
+                {
+                    log.Text += $"Processing {Path.GetFileName(jar)}\n";
+                    await orch.ProcessJarAsync(jar, outdir);
+                    i++;
+                    prog.Value = (double)i / jars.Length * 100.0;
+                }
             });
 
-            status.Text = "Done";
+            log.Text += "Done\n";
+            prog.Value = 100;
         }
     }
 }

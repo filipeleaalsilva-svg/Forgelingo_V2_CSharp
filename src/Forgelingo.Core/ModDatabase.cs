@@ -2,31 +2,45 @@ using System.Collections.Generic;
 
 namespace Forgelingo.Core
 {
-    public static class ModDatabase
+    public static partial class ModDatabase
     {
-        public static (string label, string style, string examples) GetToneProfile(string category)
+        // Extended glossary (subset ported from Python). Expand as needed.
+        private static readonly Dictionary<string,string> Glossary = new()
         {
-            // minimal profiles; expand as needed
-            return category switch
-            {
-                "magic" => ("Magia/Arcano", "místico, poético e imersivo.", "'ritual' -> 'ritual'"),
-                "tech" => ("Tecnológico/Industrial", "técnico, direto e didático.", "'generator' -> 'gerador'"),
-                _ => ("Genérico", "natural, claro e idiomático.", "")
-            };
-        }
-
-        private static readonly Dictionary<string,string> Map = new()
-        {
-            {"tinkersconstruct","tinkers"},
-            {"botania","magic"},
-            {"thermalexpansion","tech"},
-            {"immersiveengineering","tech"}
+            {"Iron Ingot","Lingote de Ferro"},
+            {"Gold Ingot","Lingote de Ouro"},
+            {"Ingot","Lingote"},
+            {"Crafting Table","Mesa de Trabalho"},
+            {"Furnace","Fornalha"},
+            {"Chest","Baú"},
+            {"Bucket","Balde"},
+            {"Pickaxe","Picareta"},
+            {"Shovel","Pá"},
+            {"Axe","Machado"},
+            {"Sword","Espada"},
+            {"Hoe","Enxada"},
+            {"Smeltery","Fundição"},
+            {"Casting","Moldagem"},
+            {"Tool Part","Peça de Ferramenta"},
+            {"Molten","Derretido"},
+            {"Augment","Módulo"},
+            {"Flux","Fluxo"},
+            {"Coil","Bobina"},
+            {"Mob","Mob"},
+            {"Boss","Chefe"},
+            {"Spawn","Spawn"},
+            {"Loot","Loot"},
+            {"Drop","Drop"},
+            {"Hopper","Funil"},
+            {"Dispenser","Dispensador"},
+            {"Comparator","Comparador"},
+            {"Repeater","Repetidor"},
+            {"Rail","Trilho"},
+            {"Beacon","Farol"},
+            {"Tool","Ferramenta"},
+            {"Recipe","Receita"},
         };
 
-        public static string GetCategory(string? modId)
-        {
-            if (string.IsNullOrEmpty(modId)) return "unknown";
-            return Map.TryGetValue(modId.ToLowerInvariant(), out var c) ? c : "unknown";
-        }
+        public static IReadOnlyDictionary<string,string> GetGlossary() => Glossary;
     }
 }

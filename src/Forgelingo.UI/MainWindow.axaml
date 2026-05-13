@@ -1,8 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<Window xmlns="https://github.com/avaloniaui" Title="Forgelingo V2" Width="800" Height="600">
-  <StackPanel Margin="12">
-    <TextBlock Text="Forgelingo V2 - C# (Avalonia)" FontSize="18" />
-    <Button Name="BtnSelectFolder" Content="Select Mods Folder" Margin="0,8,0,0" />
-    <TextBlock Name="Status" Margin="0,8,0,0" Text="Ready" />
-  </StackPanel>
+<Window xmlns="https://github.com/avaloniaui" Title="Forgelingo V2" Width="900" Height="700">
+  <DockPanel Margin="12">
+    <StackPanel DockPanel.Dock="Top" Orientation="Horizontal" Spacing="8">
+      <TextBlock Text="Forgelingo V2 - C# (Avalonia)" FontSize="18" />
+      <Button Name="BtnSettings" Content="Settings" HorizontalAlignment="Right" />
+    </StackPanel>
+
+    <StackPanel DockPanel.Dock="Top" Margin="0,12,0,0">
+      <Button Name="BtnSelectFolder" Content="Select Mods Folder" />
+      <ProgressBar Name="Progress" Minimum="0" Maximum="100" Height="18" Margin="0,8,0,0" />
+    </StackPanel>
+
+    <TextBox Name="LogBox" AcceptsReturn="True" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto" TextWrapping="Wrap" />
+  </DockPanel>
 </Window>
