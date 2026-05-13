@@ -1,0 +1,34 @@
+bin/
+obj/
+.vs/
+*.user
+*.suo
+*.userprefs
+.idea/
+*.db
+*.db-shm
+*.db-wal
+.nuget/
+**/bin/
+**/obj/
+.deploy/
+*.pdb
+*.cache
+*.log
+*.vsix
+
+# Rider
+.idea/
+
+# Visual Studio Code
+.vscode/
+
+# Mac
+.DS_Store
+
+# dotnet
+*.nuget.props
+project.lock.json
+artifacts/
+.nuget/
+
