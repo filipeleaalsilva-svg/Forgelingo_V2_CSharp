@@ -1,0 +1,12 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>net8.0</TargetFramework>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="Avalonia" Version="11.0.0-rc1" />
+    <PackageReference Include="Avalonia.Desktop" Version="11.0.0-rc1" />
+    <ProjectReference Include="..\Forgelingo.Core\Forgelingo.Core.csproj" />
+  </ItemGroup>
+</Project>
